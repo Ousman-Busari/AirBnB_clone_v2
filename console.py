@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -115,20 +115,50 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not ('=' in line and '"' in line):
-            args = args;
-        else:
-            
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif args.split()[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        # initialize variables, extract the name of the class, and
+        # creat an empty dict where to keep the paramneters
+        _cls = args.split()[0]
+        params_dict = {}
+
+        # scan for parameter inputing format i.e key="value" and
+        try:
+            # create a list of parameters with and exclude the name class
+            params_list = args.split()[1:]
+
+            # partition each parameter into key and value and
+            # add the dict of parameters
+            for param in params_list:
+                if "=" in param:
+                    key = param[:param.find("=")]
+                    value = param[param.find("=") + 1:]
+
+                    # replace underscores in value with spaces and
+                    # remove the quotations
+                    value = value.replace("_", " ").replace('\"', "")
+
+                    # typecast the value to the right type
+                    if key in HBNBCommand.types:
+                        value = types[key](value)
+
+                    # add the key-value pair to parameter dict
+                    params_dict[key] = value
+        except Exception as e:
+            pass
+
+        if params_dict == {}:
+            new_instance = eval(_cls)()
+        else:
+            new_instance = eval(_cls)(**params_dict)
+
+        storage.new(new_instance)
         print(new_instance.id)
-        storage.save()
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -191,7 +221,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -323,6 +353,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
