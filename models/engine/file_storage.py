@@ -19,8 +19,9 @@ class FileStorage:
         """Returns a dictionary of models currently in storage
         if _cls is not None, return the dictionary of models
         of that particlr class"""
-        if cls is not None and type(cls) == str:
-            cls = eval(cls)
+        if cls is not None:
+            if type(cls) == str:
+                cls = eval(cls)
             cls_dict = {}
             for key, value in self.__objects.items():
                 if type(value) == cls:

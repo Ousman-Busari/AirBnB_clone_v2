@@ -81,6 +81,7 @@ class HBNBCommand(cmd.Cmd):
                         # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
 
+
         except Exception as mess:
             pass
         finally:
@@ -144,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
 
                     # typecast the value to the right type
                     if key in HBNBCommand.types:
-                        value = types[key](value)
+                        value = HBNBCommand.types[key](value)
 
                     # add the key-value pair to parameter dict
                     params_dict[key] = value
@@ -233,21 +234,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        print_list = []
-
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+        if not args:
+            objs = storage.all()
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            objs = storage.all(args)
+        print([objs[k].__str__() for k in objs])
 
-        print(print_list)
 
     def help_all(self):
         """ Help information for the all command """
@@ -257,7 +249,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.__objects.items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)
