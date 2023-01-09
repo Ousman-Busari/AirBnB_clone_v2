@@ -16,22 +16,22 @@ from models.amenity import Amenity
 
 
 association_table = Table("place_amenity", Base.metadata,
-                            Column("place_id", String(60),
-                                ForeignKey("places.id"),
-                                primary_key=True, nullable=False),
-                            Column("amenity_id", String(60),
-                                ForeignKey("amenities.id"),
-                                primary_key=True,
-                                nullable=False))
+                          Column("place_id", String(60),
+                                 ForeignKey("places.id"),
+                                 primary_key=True, nullable=False),
+                          Column("amenity_id", String(60),
+                                 ForeignKey("amenities.id"),
+                                 primary_key=True,
+                                 nullable=False))
 
 
 class Place(BaseModel, Base):
-    """ A place to stay 
+    """ A place to stay
 
     Inherits from SQLAlchemy Base and link to the MySQL table places.
     Attributes:
-        __tablename__ (str): the name of the linked to, and 
-                                used to store instances of the class
+        __tablename__ (str): the name of the linked to, and
+                             used to store instances of the class
         city_id (sqlalchemy String): place's city id
         user_id (sqlalchemy String): place's lister/user id
         name (sqlalchemy String): the name of the place
@@ -56,7 +56,8 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     reviews = relationship("Review", backref="place", cascade="delete")
-    amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
+    amenities = relationship("Amenity", secondary="place_amenity",
+                             viewonly=False)
     amenity_ids = []
 
     if getenv("HBNB_TYPE_STORAGE") != "db":

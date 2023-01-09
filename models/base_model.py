@@ -13,7 +13,7 @@ Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models
-    
+
     Attributes:
             id (sqlalchemy string): The model id
             create_at (sqlalchemy DateTime): the datetime creation of the model

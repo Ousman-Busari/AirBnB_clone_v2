@@ -9,13 +9,14 @@ from sqlalchemy import String
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
 
+
 class State(BaseModel, Base):
-    """ State class 
-    
+    """ State class
+
     Attributes:
         __tablename__ (str): the name of the table the class models
         name (sqlalchemy String): the name of a states table,  a row nodel
-        cities (sqlalchemy relationship): 
+        cities (sqlalchemy relationship): cities under the state
     """
     __tablename__ = "states"
     name = Column(String(128), nullable=False)

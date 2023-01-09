@@ -8,15 +8,15 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
 
-
 class City(BaseModel, Base):
-    """ The city class, contains state ID and name 
-    
+    """ The city class, contains state ID and name
+
     Inherits from SQLALchemy Base class, and models the Cities table
     on the DBstorage
-    
+
     Attributes:
-        __tablename__ (str): the name of the MySQL table the class models, Cities
+        __tablename__ (str): the name of the MySQL table the class
+                             models, Cities
         name (sqlalchemy String): the id of a city model from the table - a row
         state_id (sqlalchemy String): the id of the state the city belongs to
     """

@@ -81,7 +81,6 @@ class HBNBCommand(cmd.Cmd):
                         # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
 
-
         except Exception as mess:
             pass
         finally:
@@ -239,7 +238,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             objs = storage.all(args)
         print([objs[k].__str__() for k in objs])
-
 
     def help_all(self):
         """ Help information for the all command """
