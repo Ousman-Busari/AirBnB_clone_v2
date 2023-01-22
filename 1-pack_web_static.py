@@ -8,6 +8,7 @@ from datetime import datetime
 
 
 def do_pack():
+    """packs and compressed web_static"""
     local("mkdir -p versions")
 
     arch = "versions/web_static_{}.tgz".format(
