@@ -13,7 +13,7 @@ def do_pack():
 
     arch = "versions/web_static_{}.tgz".format(
         datetime.now().strftime("%Y%m%d%H%M%S"))
-    result = local("sudo tar -cvzf %s web_static/" % arch)
+    result = local("tar -cvzf %s web_static/" % arch)
 
     if (result.succeeded):
         return (arch)
