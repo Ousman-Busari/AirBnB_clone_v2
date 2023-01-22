@@ -1,16 +1,31 @@
 #!/usr/bin/python3
-"""
-distributes an archive to web servers, using the function do_deploy
+""" generates a .tgz archive from the contents of the
+web_static folder of your AirBnB Clone repo,
+using the function do_pack
 """
 from fabric.api import *
+from datetime import datetime
 import os.path
+
 
 env.user = "ubuntu"
 env.hosts = ["100.25.171.38", "54.237.13.52"]
 
+def do_pack():
+    """packs and compressed web_static"""
+    local("mkdir -p versions")
+
+    arch = "versions/web_static_{}.tgz".format(
+        datetime.now().strftime("%Y%m%d%H%M%S"))
+    result = local("tar -cvzf %s web_static/" % arch)
+
+    if (result.succeeded):
+        return (arch)
+    return (None)
+
 
 def do_deploy(archive_path):
-    """packs and compressed web_static"""
+    """deploys, extracts, and decompressed archived web_static"""
 
     if os.path.isfile(archive_path) is False:
         return (False)
@@ -31,3 +46,10 @@ def do_deploy(archive_path):
     r = run("ln -s %s/%s /data/web_static/current" %
             (root_path, name))
     return (r.succeeded)
+
+
+def deploy():
+    """packs and deploys web_static"""
+
+    archived_path = do_pack()
+    return(do_deploy(archived_path))
