@@ -11,6 +11,7 @@ import os.path
 env.user = "ubuntu"
 env.hosts = ["100.25.171.38", "54.237.13.52"]
 
+
 def do_pack():
     """packs and compressed web_static"""
     local("mkdir -p versions")
