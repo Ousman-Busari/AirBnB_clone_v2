@@ -83,4 +83,4 @@ class DBStorage:
 
     def close(self):
         """ closes the session connection by remving the session scope """
-        self.__session.remove()
+        self.__session.close()
