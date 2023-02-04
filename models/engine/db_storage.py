@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""DBStorage engine definfition - abstraction"""
+"""DBStorage engine definition - abstraction"""
 from os import getenv
 from models.base_model import Base
 from models.base_model import BaseModel
@@ -80,3 +80,7 @@ class DBStorage:
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
+
+    def close(self):
+        """ closes the session connection by remving the session scope """
+        self.__session.remove()
