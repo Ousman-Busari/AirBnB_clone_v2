@@ -43,7 +43,7 @@ class DBStorage:
         If query is None, query all objects
 
         Return:
-            DIct of queried class in the format <class nane>.<obj.id> = obj
+            Dict of queried class in the format <class name>.<obj.id> = obj
         """
 
         if cls is None:

@@ -42,7 +42,7 @@ class Place(BaseModel, Base):
         price_by_night (sqlalchemy Integer): the price per night
         latitude (sqlalchemy Float): the place's latitude - co-ordinates
         longitude (sqlalchemy Float): the place's langitude - co-ordinate
-        amenity_ids (list): list of available amenities in the place
+        amenity_ids (list): list of available amenities id in the place
         """
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
