@@ -7,12 +7,12 @@
     {% if state is mapping %}
       <h1>States</h1>
         <ul>
-          {% for stat in state.values()|sort(attribute="name") %}
-          <li>{{ stat.id }}: <b>{{ stat.name }}</b></li>
+          {% for s in state.values()|sort(attribute="name") %}
+          <li>{{ s.id }}: <b>{{ s.name }}</b></li>
           {% endfor %}
         </ul>
     {% elif state is defined %}
-      <h1>State: state.name</h1>
+      <h1>State: {{ state.name }}</h1>
       <h3>Cities:</h3>
       <ul>
         {% for city in state.cities|sort(attribute="name") %}
