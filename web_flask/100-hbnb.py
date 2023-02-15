@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
-    """ Display all aavailabl info in a HTML body"""
+    """ Display all available info in a HTML body"""
     states = storage.all("State")
     amenities = storage.all("Amenity")
     places = storage.all("Place")
